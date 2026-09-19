@@ -1,0 +1,9 @@
+create extension if not exists pgcrypto;
+create table if not exists app_settings(id int primary key default 1,hospital_name text not null default 'BỆNH VIỆN',password_hash text,updated_at timestamptz default now());
+insert into app_settings(id,hospital_name) values(1,'BỆNH VIỆN') on conflict(id) do nothing;
+create table if not exists staff(id uuid primary key default gen_random_uuid(),employee_code text unique,name text not null,department text,active boolean default true,created_at timestamptz default now());
+create table if not exists tasks(id uuid primary key default gen_random_uuid(),assignee text,priority text,title text not null,description text,start_date date,end_date date,status text,note text,image_ref text,evaluation text,manager_note text,evidence_file text,created_at timestamptz default now(),updated_at timestamptz default now());
+create table if not exists violations(id uuid primary key default gen_random_uuid(),violation_date date,employee_code text,employee_name text,department text,error_code text,error_name text,severity text,score numeric,recorder text,note text,status text,image_ref text,created_at timestamptz default now());
+create table if not exists plans(id uuid primary key default gen_random_uuid(),plan_type text,from_date date,to_date date,department text,content text,owner text,status text,result text,note text,description text,created_at timestamptz default now(),updated_at timestamptz default now());
+create table if not exists checklist_items(id uuid primary key default gen_random_uuid(),code text,department text,category text,content text,status text,details text,image_ref text,created_at timestamptz default now());
+create table if not exists kpi_records(id uuid primary key default gen_random_uuid(),employee_code text,employee_name text,department text,period_from date,period_to date,score numeric,rating text,details jsonb default '{}'::jsonb,created_at timestamptz default now());
