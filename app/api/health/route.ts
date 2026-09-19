@@ -1,1 +1,7 @@
-import {NextResponse} from 'next/server';import {supabaseAdmin} from '@/lib/supabase';export async function GET(){const db=supabaseAdmin();return NextResponse.json({ok:true,app:'QL-KSNK-NGOAIKHOA',supabaseConfigured:!!db});}
+import { NextResponse } from 'next/server';
+import { supabaseAdmin } from '../../../lib/supabase';
+
+export async function GET() {
+  const db = supabaseAdmin();
+  return NextResponse.json({ ok: true, app: 'QL-KSNK-NGOAIKHOA', supabaseConfigured: !!db });
+}
